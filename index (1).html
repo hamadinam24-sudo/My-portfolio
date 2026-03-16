@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hamad Inam Ashfaq — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #000000;
+      --bg2: #0a0a0a;
+      --bg3: #111111;
+      --bg4: #161616;
+      --cyan: #00ffea;
+      --cyan-dim: rgba(0,255,234,0.1);
+      --cyan-mid: rgba(0,255,234,0.35);
+      --white: #ffffff;
+      --gray: #777777;
+      --border: rgba(0,255,234,0.15);
+      --font-head: 'Share Tech Mono', monospace;
+      --font-body: 'Syne', 'Segoe UI', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan-mid); border-radius: 2px; }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+    .cursor-glow {
+      position: fixed;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,234,0.035) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      transition: left 0.08s, top 0.08s;
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(14px);
+    }
+    .nav-logo { font-family: var(--font-head); font-size: 1rem; color: var(--cyan); letter-spacing: 0.05em; text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: var(--font-head); font-size: 0.78rem; color: var(--gray); text-decoration: none; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--cyan); transition: width 0.25s; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-links a:hover::after { width: 100%; }
+    section { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 7rem 3rem; }
+    .section-label { font-family: var(--font-head); font-size: 0.68rem; letter-spacing: 0.3em; color: var(--cyan); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .section-divider { width: 40px; height: 1px; background: var(--cyan); margin: 1.5rem 0 2.5rem; }
+    h2 { font-family: var(--font-body); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; color: var(--white); }
+    #home { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 8rem; }
+    #home::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,255,234,0.01) 3px, rgba(0,255,234,0.01) 4px); pointer-events: none; }
+    .home-greeting { font-family: var(--font-head); font-size: 0.85rem; color: var(--cyan); letter-spacing: 0.2em; margin-bottom: 1.2rem; opacity: 0; animation: fadeUp 0.6s 0.3s forwards; }
+    .home-name { font-family: var(--font-body); font-size: clamp(3rem, 9vw, 6.5rem); font-weight: 800; line-height: 1; letter-spacing: -0.02em; margin-bottom: 1rem; opacity: 0; animation: fadeUp 0.7s 0.5s forwards; }
+    .home-name span { color: var(--cyan); }
+    .home-role { font-family: var(--font-head); font-size: clamp(0.9rem, 2vw, 1.2rem); color: var(--gray); margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.7s 0.7s forwards; }
+    .home-tagline { font-size: 1rem; color: rgba(255,255,255,0.5); max-width: 520px; margin-bottom: 3rem; opacity: 0; animation: fadeUp 0.7s 0.9s forwards; }
+    .home-cta { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s 1.1s forwards; }
+    .btn-primary { font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 0.12em; padding: 0.85rem 2rem; background: var(--cyan); color: #000; text-decoration: none; border: none; cursor: pointer; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); transition: transform 0.15s, box-shadow 0.15s; display: inline-block; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 24px rgba(0,255,234,0.4); }
+    .btn-outline { font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 0.12em; padding: 0.85rem 2rem; background: transparent; color: var(--cyan); text-decoration: none; border: 1px solid var(--cyan); cursor: pointer; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); transition: background 0.15s, box-shadow 0.15s; display: inline-block; }
+    .btn-outline:hover { background: var(--cyan-dim); box-shadow: 0 0 18px rgba(0,255,234,0.18); }
+    #about { border-top: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-bio { font-size: 0.97rem; color: rgba(255,255,255,0.65); line-height: 1.9; }
+    .about-bio p + p { margin-top: 1rem; }
+    .skills-title { font-family: var(--font-head); font-size: 0.72rem; letter-spacing: 0.2em; color: var(--cyan); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+    .skill-tag { font-family: var(--font-head); font-size: 0.7rem; letter-spacing: 0.1em; padding: 0.42rem 0.8rem; border: 1px solid var(--border); color: var(--cyan); background: var(--cyan-dim); cursor: default; clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px)); transition: background 0.2s, border-color 0.2s; }
+    .skill-tag:hover { background: rgba(0,255,234,0.2); border-color: var(--cyan); }
+    .edu-box { margin-top: 2rem; border: 1px solid var(--border); padding: 1.3rem 1.5rem; background: var(--bg3); position: relative; }
+    .edu-box::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--cyan); }
+    .edu-degree { font-family: var(--font-head); font-size: 0.9rem; color: var(--white); }
+    .edu-school { font-size: 0.85rem; color: var(--gray); margin-top: 0.3rem; }
+    .edu-note { font-size: 0.75rem; color: rgba(0,255,234,0.45); margin-top: 0.4rem; font-family: var(--font-head); }
+    #projects { border-top: 1px solid var(--border); }
+    .project-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+    .project-card { border: 1px solid var(--border); background: var(--bg3); padding: 2rem; position: relative; overflow: hidden; transition: border-color 0.25s, transform 0.25s; }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); opacity: 0; transition: opacity 0.3s; }
+    .project-card:hover { border-color: var(--cyan-mid); transform: translateY(-4px); }
+    .project-card:hover::before { opacity: 1; }
+    .project-num { font-family: var(--font-head); font-size: 0.62rem; letter-spacing: 0.2em; color: var(--cyan); margin-bottom: 1rem; opacity: 0.55; }
+    .project-title { font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 0.6rem; }
+    .project-desc { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 1.2rem; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.4rem; }
+    .tech-badge { font-family: var(--font-head); font-size: 0.62rem; letter-spacing: 0.08em; padding: 0.25rem 0.55rem; border: 1px solid rgba(0,255,234,0.22); color: rgba(0,255,234,0.65); }
+    .project-actions { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+    .action-btn { font-family: var(--font-head); font-size: 0.68rem; letter-spacing: 0.1em; padding: 0.52rem 1rem; border: 1px solid var(--border); color: var(--cyan); background: transparent; cursor: pointer; text-transform: uppercase; transition: background 0.2s, border-color 0.2s; clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px)); }
+    .action-btn:hover { background: var(--cyan-dim); border-color: var(--cyan); }
+    .action-btn.primary { background: var(--cyan-dim); border-color: var(--cyan-mid); }
+    .action-btn.play-btn { background: var(--cyan); color: #000; border-color: var(--cyan); font-weight: 700; text-decoration: none; display: inline-block; }
+    .action-btn.play-btn:hover { background: #00ffe0; box-shadow: 0 0 20px rgba(0,255,234,0.5); transform: translateY(-2px); }
+    .ecare-card { border-color: rgba(0,255,234,0.4); background: linear-gradient(135deg, #0d1a0d 0%, #111 100%); grid-column: 1 / -1; }
+    .ecare-card .project-title { font-size: 1.25rem; }
+    .ecare-badge { display: inline-block; font-family: var(--font-head); font-size: 0.62rem; letter-spacing: 0.15em; padding: 0.3rem 0.75rem; background: var(--cyan); color: #000; font-weight: 700; margin-bottom: 0.8rem; clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px)); }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal { background: var(--bg3); border: 1px solid var(--border); width: 100%; max-width: 860px; max-height: 90vh; display: flex; flex-direction: column; transform: translateY(18px); transition: transform 0.25s; }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border); flex-shrink: 0; gap: 0.8rem; flex-wrap: wrap; }
+    .modal-title { font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 0.15em; color: var(--cyan); }
+    .modal-controls { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .modal-tabs { display: flex; }
+    .modal-tab { font-family: var(--font-head); font-size: 0.68rem; letter-spacing: 0.1em; padding: 0.42rem 0.9rem; border: 1px solid var(--border); color: var(--gray); background: transparent; cursor: pointer; text-transform: uppercase; transition: all 0.2s; margin-left: -1px; }
+    .modal-tab:hover { color: var(--cyan); }
+    .modal-tab.active { color: var(--cyan); background: var(--cyan-dim); border-color: var(--cyan-mid); z-index: 1; position: relative; }
+    .modal-close { font-family: var(--font-head); font-size: 1rem; color: var(--gray); background: none; border: none; cursor: pointer; padding: 0.3rem 0.6rem; transition: color 0.2s; }
+    .modal-close:hover { color: var(--cyan); }
+    .modal-body { overflow-y: auto; flex: 1; }
+    .modal-pane { display: none; padding: 1.6rem; }
+    .modal-pane.active { display: block; }
+    .code-file-tabs { display: flex; gap: 0.35rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .code-file-tab { font-family: var(--font-head); font-size: 0.63rem; letter-spacing: 0.08em; padding: 0.32rem 0.7rem; border: 1px solid var(--border); color: var(--gray); background: var(--bg); cursor: pointer; transition: all 0.2s; }
+    .code-file-tab:hover { color: var(--cyan); border-color: var(--cyan-mid); }
+    .code-file-tab.active { color: var(--cyan); border-color: var(--cyan); background: var(--cyan-dim); }
+    .code-block { display: none; }
+    .code-block.active { display: block; }
+    pre { background: var(--bg); border: 1px solid rgba(0,255,234,0.07); padding: 1.3rem; overflow-x: auto; font-family: var(--font-head); font-size: 0.73rem; line-height: 1.85; color: rgba(255,255,255,0.72); max-height: 480px; overflow-y: auto; white-space: pre; }
+    pre::-webkit-scrollbar { width: 3px; height: 3px; }
+    pre::-webkit-scrollbar-thumb { background: var(--cyan-mid); }
+    .run-steps { display: flex; flex-direction: column; gap: 0.9rem; }
+    .run-step { display: flex; gap: 1.2rem; align-items: flex-start; padding: 1.1rem; border: 1px solid var(--border); background: var(--bg); }
+    .step-num { font-family: var(--font-head); font-size: 0.68rem; color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--cyan-mid); width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-content h4 { font-family: var(--font-head); font-size: 0.78rem; color: var(--white); margin-bottom: 0.3rem; }
+    .step-content p { font-size: 0.84rem; color: rgba(255,255,255,0.5); }
+    .step-cmd { margin-top: 0.5rem; font-family: var(--font-head); font-size: 0.74rem; background: var(--bg3); border: 1px solid var(--border); padding: 0.45rem 0.8rem; color: var(--cyan); display: inline-block; }
+    .run-note { margin-top: 1rem; padding: 0.9rem 1.1rem; border-left: 2px solid var(--cyan); background: var(--cyan-dim); font-size: 0.82rem; color: rgba(255,255,255,0.55); font-family: var(--font-head); }
+    #contact { border-top: 1px solid var(--border); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+    .contact-info p { font-size: 0.95rem; color: rgba(255,255,255,0.5); line-height: 1.9; margin-bottom: 2rem; }
+    .contact-email { font-family: var(--font-head); font-size: 0.88rem; color: var(--cyan); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; transition: border-color 0.2s; }
+    .contact-email:hover { border-color: var(--cyan); }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label { font-family: var(--font-head); font-size: 0.66rem; letter-spacing: 0.2em; color: var(--gray); text-transform: uppercase; }
+    .form-input, .form-textarea { background: var(--bg3); border: 1px solid var(--border); color: var(--white); font-family: var(--font-body); font-size: 0.9rem; padding: 0.8rem 1rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; resize: none; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--cyan-mid); box-shadow: 0 0 0 1px var(--cyan-dim); }
+    .form-textarea { min-height: 130px; }
+    .form-submit { font-family: var(--font-head); font-size: 0.8rem; letter-spacing: 0.15em; padding: 0.9rem 2rem; background: var(--cyan); color: #000; border: none; cursor: pointer; text-transform: uppercase; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); transition: box-shadow 0.2s, transform 0.15s; align-self: flex-start; }
+    .form-submit:hover { box-shadow: 0 0 24px rgba(0,255,234,0.4); transform: translateY(-2px); }
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; max-width: 1100px; margin: 0 auto; }
+    .footer-copy { font-family: var(--font-head); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--gray); }
+    .footer-made { font-family: var(--font-head); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--gray); }
+    .footer-made span { color: var(--cyan); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s, transform 0.6s; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 5rem 1.5rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .home-cta { flex-direction: column; align-items: flex-start; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor-glow" id="glow"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">☕ &lt;hamad /&gt;</a>
+  <ul class="nav-links">
+    <li><a href="#home">home</a></li>
+    <li><a href="#about">about</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <p class="home-greeting">// hello, world — welcome to my space</p>
+  <h1 class="home-name">Hamad<br/><span>Inam Ashfaq</span></h1>
+  <p class="home-role">IT Student &amp; Developer</p>
+  <p class="home-tagline">Building things at the intersection of code, curiosity, and coffee. First-year high school student turning ideas into real software.</p>
+  <div class="home-cta">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="#contact" class="btn-outline">Get In Touch</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label reveal">// 01 — about</p>
+  <h2 class="reveal">About Me</h2>
+  <div class="section-divider reveal"></div>
+  <div class="about-grid">
+    <div class="about-bio reveal">
+      <p>Hey! I'm Hamad, a first-year high school student with a deep passion for IT, software development, and building things that actually work. I started coding young and haven't stopped since.</p>
+      <p>I'm also the <span style="color:var(--cyan);font-family:var(--font-head);font-size:0.9em;">COO &amp; Web Designer</span> at <a href="https://ecare.pythonanywhere.com/" target="_blank" style="color:var(--cyan);text-decoration:none;border-bottom:1px solid var(--border);">Ecare</a> — a company I help run and for which I designed and built the entire website from scratch.</p>
+      <p>When I'm not coding, you'll find me experimenting with new tools, playing games, or brewing the perfect cup of coffee ☕.</p>
+      <div class="edu-box">
+        <div class="edu-degree">High School — Year 1</div>
+        <div class="edu-school">Currently enrolled, studying IT</div>
+        <div class="edu-note">// university track — coming soon</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="skills-title">// skills &amp; tools</p>
+      <div class="skills-grid">
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Flask</span>
+        <span class="skill-tag">SQLite</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Git / GitHub</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">Game Dev</span>
+        <span class="skill-tag">Encryption</span>
+        <span class="skill-tag">Auth Systems</span>
+        <span class="skill-tag">Linux</span>
+        <span class="skill-tag">Networking</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label reveal">// 02 — projects</p>
+  <h2 class="reveal">My Work</h2>
+  <div class="section-divider reveal"></div>
+  <div class="project-list">
+
+    <div class="project-card reveal">
+      <p class="project-num">PROJECT_01</p>
+      <h3 class="project-title">Cube Runner</h3>
+      <p class="project-desc">A browser-based endless runner game with a Flask backend. Jump and duck as the "H" cube to avoid obstacles. Features login/signup with encrypted passwords, a global leaderboard, admin panel, and live score syncing.</p>
+      <div class="project-tech">
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">Flask</span>
+        <span class="tech-badge">SQLite</span>
+        <span class="tech-badge">JavaScript</span>
+        <span class="tech-badge">CSS3</span>
+      </div>
+      <div class="project-actions">
+        <a class="action-btn primary play-btn" href="https://greedif.pythonanywhere.com/" target="_blank" rel="noopener">▶ Play Now</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <p class="project-num">PROJECT_02</p>
+      <h3 class="project-title">Cookie Clicker</h3>
+      <p class="project-desc">A web-based idle clicker game. Click to bake cookies, unlock upgrades, and watch your cookie empire grow. A fun exploration of game loops, DOM manipulation, and persistent state.</p>
+      <div class="project-tech">
+        <span class="tech-badge">JavaScript</span>
+        <span class="tech-badge">HTML5</span>
+        <span class="tech-badge">CSS3</span>
+        <span class="tech-badge">Python</span>
+      </div>
+      <div class="project-actions">
+        <a class="action-btn primary play-btn" href="https://cookieclicker.pythonanywhere.com/" target="_blank" rel="noopener">▶ Play Now</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <p class="project-num">PROJECT_03</p>
+      <h3 class="project-title">New Year Countdown</h3>
+      <p class="project-desc">A live New Year countdown page updated every year. Displays a real-time timer counting down to midnight with animations and a celebratory effect when the clock hits zero.</p>
+      <div class="project-tech">
+        <span class="tech-badge">JavaScript</span>
+        <span class="tech-badge">HTML5</span>
+        <span class="tech-badge">CSS3</span>
+        <span class="tech-badge">Python</span>
+      </div>
+      <div class="project-actions">
+        <a class="action-btn primary play-btn" href="https://newyear.pythonanywhere.com/" target="_blank" rel="noopener">▶ Open</a>
+      </div>
+    </div>
+
+    <div class="project-card reveal ecare-card">
+      <div class="ecare-badge">COO &amp; Designer</div>
+      <p class="project-num">FEATURED // COMPANY</p>
+      <h3 class="project-title">Ecare — Company Website</h3>
+      <p class="project-desc">Official website for Ecare, a company I co-founded and serve as Chief Operating Officer. I designed and built the entire site from scratch — handling UI/UX, frontend, and deployment.</p>
+      <div class="project-tech">
+        <span class="tech-badge">UI/UX Design</span>
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">HTML5</span>
+        <span class="tech-badge">CSS3</span>
+        <span class="tech-badge">JavaScript</span>
+      </div>
+      <div class="project-actions">
+        <a class="action-btn primary play-btn" href="https://ecare.pythonanywhere.com/" target="_blank" rel="noopener">↗ Visit Site</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label reveal">// 03 — contact</p>
+  <h2 class="reveal">Get In Touch</h2>
+  <div class="section-divider reveal"></div>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <p>I'm always open to collaborations, opportunities, or just a chat about tech and games. Drop me a message and I'll get back to you.</p>
+      <a href="mailto:hamad.inam24@gmail.com" class="contact-email">✉ hamad.inam24@gmail.com</a>
+    </div>
+    <form class="contact-form reveal" id="contactForm">
+      <div class="form-group">
+        <label class="form-label" for="name">Name</label>
+        <input class="form-input" type="text" id="name" placeholder="Your Name" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" placeholder="your@email.com" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="message">Message</label>
+        <textarea class="form-textarea" id="message" placeholder="What's on your mind?" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-copy">© 2025 Hamad Inam Ashfaq. All rights reserved.</p>
+  <p class="footer-made">Built with <span>&lt;/&gt;</span> &amp; <span>☕</span></p>
+</footer>
+
+<script>
+  // Cursor glow
+  const glow = document.getElementById('glow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 75);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--cyan)' : ''; });
+  });
+
+  // Contact form
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.form-submit');
+    btn.textContent = 'Message Sent ✓';
+    btn.style.cssText = 'background:rgba(0,255,234,0.12);color:var(--cyan);border:1px solid var(--cyan);clip-path:none;padding:0.9rem 2rem;font-family:var(--font-head);font-size:0.8rem;letter-spacing:0.15em;cursor:pointer;';
+    this.reset();
+    setTimeout(() => {
+      btn.textContent = 'Send Message';
+      btn.style.cssText = '';
+    }, 3500);
+  });
+
+  // ── SOURCE CODE FOR MODALS ──
+  const CODE = {
+    p1: [
+      // index.html
+`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cube Runner Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="score-container">
+            <div class="left-panel">
+                <div class="score">Score: <span id="score-value">0</span></div>
+                <div class="user-info" id="user-info"></div>
+            </div>
+            <div class="right-panel">
+                <div class="high-score">High Score: <span id="high-score-value">0</span></div>
+                <button class="settings-btn" id="settings-btn">⚙️</button>
+            </div>
+        </div>
+
+        <div class="night-sky">
+            <div class="moon"></div>
+            <div class="stars"></div>
+        </div>
+        <div class="ground"><div class="ground-line"></div></div>
+
+        <div class="dino" id="dino">
+            <div class="h-cube"><div class="h-letter">H</div></div>
+        </div>
+
+        <div class="obstacles-container" id="obstacles-container"></div>
+        <div class="clouds-container" id="clouds-container"></div>
+
+        <div class="game-over" id="game-over">
+            <h2>Game Over</h2>
+            <p>Your score: <span id="final-score">0</span></p>
+            <button class="restart-btn" id="restart-btn">Play Again</button>
+        </div>
+
+        <div class="pause-screen" id="pause-screen">
+            <div class="pause-content">
+                <button class="close-btn" id="close-btn">✕</button>
+                <h2>Settings</h2>
+                <div class="settings-option">
+                    <span>Music Volume:</span>
+                    <div class="volume-control">
+                        <button class="music-toggle-btn" id="music-toggle">🔊</button>
+                        <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="30">
+                    </div>
+                </div>
+                <button class="logout-btn" id="logout-btn">Logout</button>
+                <div class="credit">Game made by: Hamad Inam</div>
+            </div>
+        </div>
+
+        <div class="instructions">Press SPACE to jump, DOWN to duck</div>
+
+        <div class="start-screen" id="start-screen">
+            <h2>Cube Runner</h2>
+            <p>Press SPACE to start</p>
+        </div>
+
+        <div class="auth-screen" id="auth-screen">
+            <div class="auth-container">
+                <h2>Cube Runner</h2>
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="signup">Sign Up</button>
+                </div>
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <input type="text" id="login-username" placeholder="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="login-password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Login</button>
+                </form>
+                <form id="signup-form" class="auth-form">
+                    <div class="form-group">
+                        <input type="text" id="signup-username" placeholder="Username" required minlength="3">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="signup-password" placeholder="Password" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="Sound/background-music.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="game-over-sound">
+        <source src="Sound/game-over.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="game.js"><\/script>
+</body>
+</html>`,
+
+      // style.css
+`/* ══════════════════════════════════
+   CUBE RUNNER — style.css
+   Full styling for the game UI
+══════════════════════════════════ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0c1445 0%, #1a237e 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.game-container {
+    position: relative;
+    width: 1400px;
+    height: 600px;
+    background: linear-gradient(to bottom, #1a237e, #283593, #1a237e);
+    border: 4px solid #3949ab;
+    border-radius: 15px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.7);
+    overflow: hidden;
+}
+
+.score, .high-score {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffeb3b;
+    background: rgba(26,35,126,0.8);
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: 2px solid #3949ab;
+}
+
+.dino {
+    position: absolute;
+    bottom: 50px;
+    left: 120px;
+    width: 80px;
+    height: 80px;
+    z-index: 10;
+}
+
+.h-cube {
+    width: 100%; height: 100%;
+    background-color: #000;
+    border: 3px solid #333;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+}
+
+.h-letter {
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+
+.dino.ducking { height: 50px; width: 90px; }
+
+.moon {
+    position: absolute;
+    top: 50px; left: 50%;
+    transform: translateX(-50%);
+    width: 100px; height: 100px;
+    background: radial-gradient(circle at 30% 30%, #fffde7, #ffeb3b);
+    border-radius: 50%;
+    box-shadow: 0 0 60px #ffeb3b, 0 0 120px rgba(255,235,59,0.4);
+}
+
+.ground {
+    position: absolute;
+    bottom: 0; width: 100%; height: 50px;
+    background: linear-gradient(to top, #5d4037, #795548);
+}
+
+@keyframes jump {
+    0%   { bottom: 50px; }
+    50%  { bottom: 300px; }
+    100% { bottom: 50px; }
+}
+
+@keyframes moveObstacle {
+    from { left: 1400px; }
+    to   { left: -150px; }
+}
+
+@keyframes birdFly {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+}`,
+
+      // game.js
+`/* ══════════════════════════════════
+   CUBE RUNNER — game.js
+   Core game logic, auth, collision
+══════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    // ── DOM References ──
+    const dino = document.getElementById('dino');
+    const scoreValue = document.getElementById('score-value');
+    const highScoreValue = document.getElementById('high-score-value');
+    const authScreen = document.getElementById('auth-screen');
+    const startScreen = document.getElementById('start-screen');
+    const gameOverScreen = document.getElementById('game-over');
+    const obstaclesContainer = document.getElementById('obstacles-container');
+
+    // ── State ──
+    let isJumping = false, isDucking = false;
+    let isGameOver = false, isGameStarted = false;
+    let score = 0, highScore = 0;
+    let gameSpeed = 4;
+    let obstacles = [], clouds = [];
+    let gameLoop, obstacleInterval, scoreInterval;
+    let currentUser = null;
+
+    // ── Security: Block console cheating ──
+    Object.defineProperty(window, 'currentUser', {
+        get: () => { console.warn('🔒 Access blocked'); return null; },
+        set: () => { console.warn('🔒 Modification blocked'); },
+        configurable: false
+    });
+
+    // ── Password encryption ──
+    function encryptPassword(password) {
+        return btoa(unescape(encodeURIComponent(password)));
+    }
+
+    // ── Auth: Login ──
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+        const users = JSON.parse(localStorage.getItem('cuberunner_users') || '{}');
+        if (users[username] && users[username].password === encryptPassword(password)) {
+            currentUser = username;
+            authScreen.style.display = 'none';
+            startScreen.style.display = 'flex';
+            highScore = users[username].highScore || 0;
+            highScoreValue.textContent = highScore;
+        } else {
+            alert('Invalid username or password');
+        }
+    });
+
+    // ── Auth: Sign Up ──
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('signup-username').value;
+        const password = document.getElementById('signup-password').value;
+        const confirm = document.getElementById('signup-confirm-password').value;
+        if (password !== confirm) { alert('Passwords do not match'); return; }
+        const users = JSON.parse(localStorage.getItem('cuberunner_users') || '{}');
+        if (users[username]) { alert('Username already taken'); return; }
+        users[username] = { password: encryptPassword(password), highScore: 0 };
+        localStorage.setItem('cuberunner_users', JSON.stringify(users));
+        alert('Account created! You can now log in.');
+    });
+
+    // ── Jump ──
+    function jump() {
+        if (!isJumping && !isDucking && isGameStarted && !isGameOver) {
+            isJumping = true;
+            dino.classList.add('jumping');
+            setTimeout(() => {
+                dino.classList.remove('jumping');
+                isJumping = false;
+            }, 800);
+        }
+    }
+
+    // ── Duck ──
+    function duck(active) {
+        if (active && !isJumping) {
+            isDucking = true;
+            dino.classList.add('ducking');
+        } else {
+            isDucking = false;
+            dino.classList.remove('ducking');
+        }
+    }
+
+    // ── Collision Detection ──
+    function checkCollision() {
+        const dinoRect = dino.getBoundingClientRect();
+        const margin = 10;
+        for (const obs of obstacles) {
+            const obsRect = obs.element.getBoundingClientRect();
+            if (
+                dinoRect.left + margin < obsRect.right - margin &&
+                dinoRect.right - margin > obsRect.left + margin &&
+                dinoRect.top + margin < obsRect.bottom - margin &&
+                dinoRect.bottom - margin > obsRect.top + margin
+            ) {
+                endGame(); return;
+            }
+        }
+    }
+
+    // ── Game Loop ──
+    function gameFrame() {
+        checkCollision();
+        gameLoop = requestAnimationFrame(gameFrame);
+    }
+
+    // ── End Game ──
+    function endGame() {
+        isGameOver = true;
+        cancelAnimationFrame(gameLoop);
+        clearInterval(obstacleInterval);
+        clearInterval(scoreInterval);
+        document.getElementById('final-score').textContent = score;
+        gameOverScreen.style.display = 'flex';
+        if (score > highScore) {
+            highScore = score;
+            highScoreValue.textContent = highScore;
+            const users = JSON.parse(localStorage.getItem('cuberunner_users') || '{}');
+            if (users[currentUser]) {
+                users[currentUser].highScore = highScore;
+                localStorage.setItem('cuberunner_users', JSON.stringify(users));
+            }
+        }
+    }
+
+    // ── Controls ──
+    document.addEventListener('keydown', function(e) {
+        if (e.code === 'Space') {
+            e.preventDefault();
+            if (!isGameStarted && !isGameOver) startGame();
+            else jump();
+        }
+        if (e.code === 'ArrowDown') { e.preventDefault(); duck(true); }
+    });
+    document.addEventListener('keyup', function(e) {
+        if (e.code === 'ArrowDown') duck(false);
+    });
+
+});`,
+
+      // server.py
+`import http.server
+import socketserver
+import webbrowser
+import os
+
+PORT = 8000
+
+class Handler(http.server.SimpleHTTPRequestHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory=os.path.dirname(__file__), **kwargs)
+
+def main():
+    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+        print(f"Server running at http://localhost:{PORT}")
+        print("Opening game in browser...")
+        webbrowser.open(f'http://localhost:{PORT}')
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\\nServer stopped.")
+
+if __name__ == "__main__":
+    main()`
+    ],
+
+    p2: [
+      // index.html (Flask version)
+`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cube Runner - Secure Online Edition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="game-container">
+
+        <div class="score-container">
+            <div class="left-panel">
+                <div class="score">Score: <span id="score-value">0</span></div>
+                <div class="user-info" id="user-info"></div>
+            </div>
+            <div class="right-panel">
+                <div class="high-score">High Score: <span id="high-score-value">0</span></div>
+                <button class="settings-btn" id="settings-btn">⚙️</button>
+            </div>
+        </div>
+
+        <!-- 🏆 Global Leaderboard -->
+        <div class="leaderboard-panel" id="leaderboard-panel">
+            <h3>🏆 Leaderboard</h3>
+            <div id="leaderboard-content">
+                <div class="loading">Loading...</div>
+            </div>
+            <button class="refresh-leaderboard" id="refresh-leaderboard">🔄 Refresh</button>
+        </div>
+
+        <div class="night-sky">
+            <div class="moon"></div>
+            <div class="stars"></div>
+        </div>
+        <div class="ground"><div class="ground-line"></div></div>
+
+        <div class="dino" id="dino">
+            <div class="h-cube"><div class="h-letter">H</div></div>
+        </div>
+
+        <div class="obstacles-container" id="obstacles-container"></div>
+        <div class="clouds-container" id="clouds-container"></div>
+
+        <div class="game-over" id="game-over">
+            <h2>Game Over</h2>
+            <p>Your score: <span id="final-score">0</span></p>
+            <div class="game-over-stats" id="game-over-stats"></div>
+            <button class="restart-btn" id="restart-btn">Play Again</button>
+            <button class="leaderboard-btn" id="leaderboard-btn">View Leaderboard</button>
+        </div>
+
+        <div class="start-screen" id="start-screen">
+            <h2>Cube Runner</h2>
+            <p class="subtitle">Secure Online Edition</p>
+            <p>Press SPACE to start</p>
+            <div class="start-features">
+                <div class="feature">🔒 Secure Database</div>
+                <div class="feature">🏆 Global Leaderboard</div>
+                <div class="feature">👑 Admin System</div>
+            </div>
+        </div>
+
+        <!-- Live connection status -->
+        <div class="connection-status" id="connection-status">
+            <span class="status-dot"></span>
+            <span class="status-text">Connected to Server</span>
+        </div>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="{{ url_for('static', filename='background-music.mp3') }}" type="audio/mpeg">
+    </audio>
+    <script src="{{ url_for('static', filename='game.js') }}"><\/script>
+</body>
+</html>`,
+
+      // style.css additions
+`/* ══════════════════════════════════
+   CUBE RUNNER: ONLINE — style.css
+   Extended styles (base + online features)
+══════════════════════════════════ */
+
+/* All base styles from v1 included, plus: */
+
+/* ── Leaderboard Panel ── */
+.leaderboard-panel {
+    position: absolute;
+    top: 80px; right: 20px;
+    width: 200px;
+    background: rgba(26,35,126,0.92);
+    border: 2px solid #3949ab;
+    border-radius: 10px;
+    padding: 15px;
+    z-index: 20;
+    color: #ffeb3b;
+}
+
+.leaderboard-panel h3 { font-size: 16px; margin-bottom: 10px; }
+
+.leaderboard-entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    color: #bbdefb;
+}
+
+.leaderboard-entry.gold { color: #ffd700; }
+.leaderboard-entry.silver { color: #c0c0c0; }
+.leaderboard-entry.bronze { color: #cd7f32; }
+
+/* ── Connection Status ── */
+.connection-status {
+    position: absolute;
+    bottom: 30px; right: 20px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: #bbdefb; z-index: 20;
+}
+
+.status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #4caf50;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* ── Admin Panel ── */
+.admin-panel {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #1a237e, #283593);
+    padding: 40px; border-radius: 20px;
+    border: 3px solid #ff9800;
+    z-index: 300; min-width: 500px;
+    color: #ffeb3b;
+}
+
+.admin-shortcut { color: #90caf9; font-size: 12px; }
+.version { font-size: 12px; color: #90caf9; }`,
+
+      // game.js (online edition)
+`/* ══════════════════════════════════
+   CUBE RUNNER: ONLINE — game.js
+   Flask API, leaderboard, admin panel
+══════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    const API_BASE = '';  // Same domain on server
+    let isAdmin = false;
+    let currentUser = null;
+    let isMusicPlaying = false;
+
+    // ── Security ──
+    Object.defineProperty(window, 'isAdmin', {
+        get: () => { console.warn('🔒 isAdmin access blocked'); return false; },
+        configurable: false
+    });
+    Object.defineProperty(window, 'score', {
+        get: () => { console.warn('🔒 score access blocked'); return 0; },
+        configurable: false
+    });
+
+    // ── Login via Flask API ──
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const data = await res.json();
+            if (data.success) {
+                currentUser = data.user;
+                isAdmin = data.is_admin;
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('start-screen').style.display = 'flex';
+                loadLeaderboard();
+                updateConnectionStatus(true);
+            } else {
+                showMessage(data.error || 'Login failed', 'error');
+            }
+        } catch (err) {
+            showMessage('Cannot connect to server', 'error');
+            updateConnectionStatus(false);
+        }
+    });
+
+    // ── Save Score to Server ──
+    async function saveScore(finalScore) {
+        try {
+            await fetch('/api/save_score', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: currentUser.username, score: finalScore })
+            });
+            loadLeaderboard();
+        } catch (err) {
+            console.log('Could not save score to server');
+        }
+    }
+
+    // ── Load Leaderboard ──
+    async function loadLeaderboard() {
+        const content = document.getElementById('leaderboard-content');
+        try {
+            const res = await fetch('/api/leaderboard');
+            const data = await res.json();
+            const medals = ['🥇','🥈','🥉'];
+            content.innerHTML = data.leaderboard.slice(0,10).map((entry, i) =>
+                '<div class="leaderboard-entry ' + (i<3?['gold','silver','bronze'][i]:'') + '">' +
+                '<span>' + (medals[i]||'#'+(i+1)) + ' ' + entry.username + '</span>' +
+                '<span>' + entry.high_score + '</span></div>'
+            ).join('');
+        } catch (err) {
+            content.innerHTML = '<p style="color:#f44336">Offline</p>';
+        }
+    }
+
+    // ── Admin Panel ──
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+            if (isAdmin) openAdminPanel();
+            else console.warn('🔒 Admin access denied');
+        }
+        if (e.code === 'Space') jump();
+        if (e.code === 'ArrowDown') duck(true);
+        if (e.code === 'Escape') toggleSettings();
+    });
+
+    // ── Connection Status ──
+    function updateConnectionStatus(connected) {
+        const dot = document.querySelector('.status-dot');
+        const text = document.querySelector('.status-text');
+        dot.style.background = connected ? '#4caf50' : '#f44336';
+        text.textContent = connected ? 'Connected to Server' : 'Offline Mode';
+    }
+
+    // ── Game loop, jump, collision same as v1 ──
+    // + score synced to server on endGame()
+
+});`,
+
+      // server.py
+`import http.server
+import socketserver
+import webbrowser
+import os
+
+PORT = 8000
+
+class Handler(http.server.SimpleHTTPRequestHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory=os.path.dirname(__file__), **kwargs)
+
+def main():
+    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+        print(f"Server running at http://localhost:{PORT}")
+        webbrowser.open(f'http://localhost:{PORT}')
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\\nServer stopped.")
+
+if __name__ == "__main__":
+    main()`,
+
+      // requirements.txt
+`Flask==2.3.3
+cryptography==41.0.7`
+    ]
+  };
+
+  // Populate all pre elements
+  Object.entries(CODE).forEach(([proj, files]) => {
+    files.forEach((code, i) => {
+      const el = document.getElementById(proj + '-pre-' + i);
+      if (el) el.textContent = code;
+    });
+  });
+
+  // ── MODAL API ──
+  window.openModal = function(proj, tab) {
+    const overlay = document.getElementById('modal-' + proj);
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Switch to correct tab
+    const pane = document.getElementById(proj + '-' + tab);
+    overlay.querySelectorAll('.modal-pane').forEach(p => p.classList.remove('active'));
+    overlay.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+    if (pane) pane.classList.add('active');
+    // Activate matching tab button
+    overlay.querySelectorAll('.modal-tab').forEach(t => {
+      const isCode = tab === 'code' && t.textContent.includes('Source');
+      const isRun = tab === 'run' && t.textContent.includes('Run');
+      if (isCode || isRun) t.classList.add('active');
+    });
+  };
+
+  window.closeModal = function(proj) {
+    document.getElementById('modal-' + proj).classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  window.switchTab = function(proj, tab, btn) {
+    const overlay = document.getElementById('modal-' + proj);
+    overlay.querySelectorAll('.modal-pane').forEach(p => p.classList.remove('active'));
+    overlay.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(proj + '-' + tab).classList.add('active');
+    btn.classList.add('active');
+  };
+
+  window.switchFile = function(proj, idx, btn) {
+    const pane = document.getElementById(proj + '-code');
+    pane.querySelectorAll('.code-block').forEach(b => b.classList.remove('active'));
+    pane.querySelectorAll('.code-file-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(proj + '-file-' + idx).classList.add('active');
+    btn.classList.add('active');
+  };
+
+  // Close on overlay click or ESC
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(o => {
+        o.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+</script>
+</body>
+</html>
