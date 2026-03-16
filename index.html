@@ -332,7 +332,7 @@
       <p>I'm always open to collaborations, opportunities, or just a chat about tech and games. Drop me a message and I'll get back to you.</p>
       <a href="mailto:hamad.inam24@gmail.com" class="contact-email">✉ hamad.inam24@gmail.com</a>
     </div>
-    <form class="contact-form reveal" id="contactForm" onsubmit="return false;">
+    <form class="contact-form reveal" id="contactForm">
       <div class="form-group">
         <label class="form-label" for="name">Name</label>
         <input class="form-input" type="text" id="name" placeholder="Your Name" required />
@@ -1123,10 +1123,4 @@ cryptography==41.0.7`
   window.switchFile = function(proj, idx, btn) {
     const pane = document.getElementById(proj + '-code');
     pane.querySelectorAll('.code-block').forEach(b => b.classList.remove('active'));
-    pane.querySelectorAll('.code-file-tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(proj + '-file-' + idx).classList.add('active');
-    btn.classList.add('active');
-  };
-
-  // Close on overlay click or ESC
-  document.querySelectorAll(
+    pane.querySel
